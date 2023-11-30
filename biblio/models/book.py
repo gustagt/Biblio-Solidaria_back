@@ -1,6 +1,4 @@
-from flask import jsonify, send_file
 from sqlalchemy import text
-from datetime import date
 from biblio.data.db import connect
 
 
@@ -68,23 +66,3 @@ class Book:
         conn.commit()
         conn.close()
         return
-
-
-    # def convert_ret(retorno_db):
-    #     taxa = Taxa(
-    #         retorno_db[1],
-    #         retorno_db[2],
-    #         retorno_db[3],
-    #         retorno_db[4],
-    #         retorno_db[5],
-    #         retorno_db[6],
-    #         retorno_db[7],
-    #         retorno_db[8],
-    #         retorno_db[9],
-    #         retorno_db[10],
-    #         retorno_db[11],
-    #         retorno_db[12],
-    #         retorno_db[0],
-    #     )
-       
-

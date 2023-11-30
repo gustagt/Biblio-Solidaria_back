@@ -3,7 +3,7 @@ import pandas as pd
 
 from biblio.helpers.auth import login_required
 from biblio.models.book import Book
-
+from datetime import datetime
 
 bp = Blueprint("books", __name__, url_prefix="/books")
 
@@ -21,7 +21,7 @@ def books():
         return json_result
     
     if request.method == "POST":
-        book = Book(request.form.get('title'),request.form.get('author'),request.form.get('pages'),request.form.get('creat_at'))
+        book = Book(request.form.get('title'),request.form.get('author'),request.form.get('pages'), datetime.now())
         try:
             data = book.insert()
         except:

@@ -1,90 +1,70 @@
-from flask import jsonify, send_file
 from sqlalchemy import text
 from datetime import date
-
+from biblio.data.db import connect
 
 
 
 class Protocol:
     def __init__(
         self,
+        user_possession,
+        remove_at,
         id_book,
-        title,
-        author,
-        pages,
-        create_at,
+        returned_at=None,
+        id_protocol=None,
     ):
+        self.id_protocol = id_protocol
+        self.user_possession = user_possession
+        self.remove_at = remove_at
         self.id_book = id_book
-        self.title = title
-        self.author = author
-        self.pages = pages
-        self.create_at = create_at
-    
-    # def select(id_taxa, conn: Connection):
-    #     retorno_db = conn.execute(
-    #         text(f"SELECT * FROM sitt.taxas WHERE `id_taxa` = {id_taxa}")
-    #     ).fetchone()
-    #     if retorno_db:
-    #         taxa = Taxa.convert_ret(retorno_db)
-    #     else:
-    #         return retorno_db
-    #     return taxa
-    
-    # def select_id(id_taxa, conn: Connection):
-    #     retorno_db = conn.execute(
-    #         text(f"SELECT * FROM sitt.taxas WHERE `id_taxa` = {id_taxa}")
-    #     ).fetchone()
-    #     if retorno_db:
-    #         taxa = Taxa.convert_ret(retorno_db)
-    #     else:
-    #         return retorno_db
-    #     return taxa
+        if returned_at:
+            self.returned_at = f"'{returned_at}'" 
+        else: 
+            self.returned_at= 'NULL'
+        
+    def select():
+        conn = connect()
+        retorno_db = conn.execute(
+            text("SELECT * FROM biblio.protocols")
+        ).fetchall()
+        conn.close()
+        return retorno_db
 
-    # def insert(self, conn: Connection):
-    #     conn.execute(
-    #         text(
-    #             "INSERT INTO sitt.taxas (`tipo_taxa`, `data_emissao`, `data_vencimento`, `valor`, `estado`, `setor`,`nome_cadastrante`, `contribuintes_id`) "
-    #             f"VALUES ('{self.tipo_taxa}','{self.data_emissao}','{self.data_vencimento}',{self.valor},{self.estado},{self.setor},'{self.nome_cadastrante}',{self.id_contribuinte})"
-    #         )
-    #     )
+    def select_id(id_protocol):
+        conn = connect()
+        retorno_db = conn.execute(
+            text(f"SELECT * FROM biblio.protocols WHERE `id_protocol` = {id_protocol}")
+        ).fetchall()
+        return retorno_db
 
-    # def update(self, conn: Connection):
-    #     conn.execute(
-    #         text(
-    #             f"UPDATE sitt.taxas "
-    #             f"SET `tipo_taxa` = '{self.tipo_taxa}', `data_emissao` = '{self.data_emissao}', `data_vencimento` = '{self.data_vencimento}', `valor`={self.valor}, `estado` = {self.estado}, `setor` = {self.setor},`nome_cadastrante`='{self.nome_cadastrante}', `contribuintes_id`={self.id_contribuinte} "
-    #             f"WHERE id_taxa = {self.id}"
-    #         )
-    #     )
+    def insert(self):
+        conn = connect()
+        conn.execute(
+            text(
+                f"INSERT INTO `biblio`.`protocols` (`user_possession`, `remove_at`, `returned_at`, `book_id_book`) VALUES ('{self.user_possession}', '{self.remove_at}', {self.returned_at}, {self.id_book});"   
+            )
+        )
+        conn.commit()
+        conn.close()
+        return 
 
-
-    # def delete(id_taxa, conn: Connection):
-    #     retorno_db = conn.execute(
-    #         text(f"SELECT * FROM sitt.taxas WHERE `id_taxa` = {id_taxa}")
-    #     ).fetchone()
-    #     if retorno_db:
-    #         taxa = Taxa.convert_ret(retorno_db)
-    #     else:
-    #         return retorno_db
-    #     return taxa
+    def update(self):
+        conn = connect()
+        conn.execute(
+            text(
+                f"UPDATE `biblio`.`protocols` SET `user_possession` = '{self.user_possession}', `remove_at` = '{self.remove_at}', `returned_at` = {self.returned_at}, `book_id_book` = {self.id_book} WHERE (`id_protocol` = {self.id_protocol});"
+            )
+        )
+        conn.commit()
+        conn.close()
+        return 
 
 
-
-    # def convert_ret(retorno_db):
-    #     taxa = Taxa(
-    #         retorno_db[1],
-    #         retorno_db[2],
-    #         retorno_db[3],
-    #         retorno_db[4],
-    #         retorno_db[5],
-    #         retorno_db[6],
-    #         retorno_db[7],
-    #         retorno_db[8],
-    #         retorno_db[9],
-    #         retorno_db[10],
-    #         retorno_db[11],
-    #         retorno_db[12],
-    #         retorno_db[0],
-    #     )
-    #     return taxa
-
+    def delete(id_protocol):
+        conn = connect()
+        conn.execute(
+            text(f"DELETE FROM `biblio`.`protocols` WHERE (`id_protocol` = {id_protocol});")
+        )
+        conn.commit()
+        conn.close()
+        return
