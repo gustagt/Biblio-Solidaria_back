@@ -1,6 +1,6 @@
 
 import functools
-from flask import Blueprint, g, jsonify, session, request
+from flask import Blueprint, g, jsonify, request
 from datetime import datetime, timedelta
 import jwt
 

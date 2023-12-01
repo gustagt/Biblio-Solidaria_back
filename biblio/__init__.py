@@ -21,13 +21,13 @@ try:
 except OSError:
     pass
 
-from .helpers import auth
+from biblio.helpers import auth
 
 app.register_blueprint(auth.bp)
 
-from .controllers import sessao, protocolController, booksController
+from biblio.controllers import sessaoController, protocolController, booksController
 
-app.register_blueprint(sessao.bp)
+app.register_blueprint(sessaoController.bp)
 
 app.register_blueprint(protocolController.bp)
 
@@ -37,7 +37,7 @@ app.register_blueprint(booksController.bp)
 
   
 
-# CORS(app, resources={r"/*": {"origins": "http://10.140.19.20:9010"}})
+
 CORS(app)
 
 if __name__ == "__main__":
