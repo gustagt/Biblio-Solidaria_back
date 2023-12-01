@@ -10,10 +10,3 @@ def connectAD(username, password):
     if 'ad' not in g:
         g.ad = Connection(server,  user=f"{active_directory.DOMAIN}.{active_directory.NAME}\\"+username, password=password,  authentication=NTLM)
     return g.ad
-    
-    
-
-
-
-    
-

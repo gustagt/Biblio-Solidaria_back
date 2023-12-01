@@ -31,8 +31,9 @@ def loginAD():
     else:
  
         search_filter = f'(sAMAccountname= {username})'
-        
-        g.ad.search(search_base=f"ou=USUARIOS,dc={active_directory.DOMAIN},dc={active_directory.NAME}", search_filter=search_filter, search_scope=SUBTREE, attributes=ALL_ATTRIBUTES)
+      
+        g.ad.search(search_base=f"ou=USUARIOS,ou=TRANSCON,ou=PREFEITURA,dc={active_directory.DOMAIN},"
+                    f"dc={active_directory.NAME}", search_filter=search_filter, search_scope=SUBTREE, attributes=ALL_ATTRIBUTES)
         
         entry = g.ad.entries[0] if g.ad.entries else None
         if entry:
