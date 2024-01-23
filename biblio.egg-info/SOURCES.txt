@@ -1,0 +1,17 @@
+MANIFEST.in
+setup.py
+biblio/__init__.py
+biblio.egg-info/PKG-INFO
+biblio.egg-info/SOURCES.txt
+biblio.egg-info/dependency_links.txt
+biblio.egg-info/requires.txt
+biblio.egg-info/top_level.txt
+biblio/controllers/booksController.py
+biblio/controllers/protocolController.py
+biblio/controllers/sessaoController.py
+biblio/credentials/credentials.py
+biblio/data/ad.py
+biblio/data/db.py
+biblio/helpers/auth.py
+biblio/models/book.py
+biblio/models/protocol.py
