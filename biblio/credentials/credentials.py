@@ -1,5 +1,5 @@
 class active_directory:
-    IP = '10.101.22.3'
+    IP = '10.129.0.101'
     DOMAIN = 'pmc'
     NAME = 'intra'
     
@@ -9,5 +9,7 @@ class   data_base:
     SCHEMA = 'biblio'
     USER = 'root'
     PASSWORD = '123456'
+    USER_SERVER = 'biblio'
+    PASSWORD_SERVER = 'Biblio2#24'
     
     

@@ -30,7 +30,7 @@ def books():
         book = Book(convert_json['title'],convert_json['author'],convert_json['pages'], datetime.now())
         
         img_book = request.files['img_book']
-        caminho = Path().absolute()/  'biblio' / 'static' / 'images' / 'books' 
+        caminho = Path().absolute()/  'biblio' / 'static' / 'books' 
         
         try:
             book.insert()
@@ -87,5 +87,6 @@ def book(id):
 @bp.route('/images/<path:filename>', methods=(["GET", "POST"]))
 def images(filename):
     if request.method == "GET":
-        return send_from_directory('static/images/books', filename)
+        caminho = Path().absolute()/  'biblio' / 'static' / 'books' 
+        return send_from_directory(caminho ,filename)
 

@@ -3,3 +3,8 @@ __pycache__
 \instace
 
 biblio/credentials/credentials.py
+
+static
+dist
+build
+instance

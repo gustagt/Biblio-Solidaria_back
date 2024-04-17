@@ -9,5 +9,7 @@ class   data_base:
     SCHEMA = 'biblio'
     USER = 'root'
     PASSWORD = '123456'
+    USER_SERVER = 'biblio'
+    PASSWORD_SERVER = 'Biblio2#24'
     
     

@@ -4,6 +4,7 @@ import pandas as pd
 
 from biblio.helpers.auth import login_required
 from biblio.models.protocol import Protocol
+from biblio.models.assessments import Assessments
 
 from datetime import datetime
 
@@ -44,6 +45,7 @@ def protocols():
 @login_required
 def protocol(id):
     if request.method == "GET":
+        
     
         data = Protocol.select_id(id)
         df = pd.DataFrame(data, columns=['id', 'user_possession', 'remove_at', 'returned_at', 'id_book'])
@@ -55,11 +57,16 @@ def protocol(id):
       
     if request.method == "PUT":
         json = request.get_json()
+        assessments_json = json['assessment']
         book = Protocol(json['user_possession'],json['remove_at'],json['id_book'], datetime.now(), id_protocol=id)
+        
+        assessment = Assessments(json['id_book'],id,comments=assessments_json['comments'],fun=assessments_json['fun'],romantic=assessments_json['romantic'],sad=assessments_json['sad'],shocking=assessments_json['shocking'],overall=assessments_json['overall']) 
+        
 
         try:
             book.update()
             data = Protocol.select_id(id)
+            assessment.insert()
         
             df = pd.DataFrame(data, columns=['id', 'user_possession', 'remove_at', 'returned_at', 'id_book'])
             json_result = df.to_json(orient='records', date_format='iso', force_ascii=False, indent=2)
@@ -86,8 +93,6 @@ def protocol_book(id):
         token = jwt.decode(request.headers['Token'], 'dev', algorithms=["HS256"]) 
         
         data = Protocol.select_last_protocol_id_book(id)
-        
-        
       
         df = pd.DataFrame(data, columns=['id', 'user_possession', 'remove_at', 'returned_at', 'id_book'])
         

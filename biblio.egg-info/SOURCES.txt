@@ -1,4 +1,5 @@
 MANIFEST.in
+README.md
 setup.py
 biblio/__init__.py
 biblio.egg-info/PKG-INFO
@@ -15,3 +16,4 @@ biblio/data/db.py
 biblio/helpers/auth.py
 biblio/models/book.py
 biblio/models/protocol.py
+biblio/static/books/cover-17.jpg
