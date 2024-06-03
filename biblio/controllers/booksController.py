@@ -6,6 +6,7 @@ import pandas as pd
 from biblio.helpers.auth import login_required
 from biblio.models.book import Book
 from biblio.models.assessments import Assessments
+from biblio.models.protocol import Protocol
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import json
@@ -60,7 +61,8 @@ def book(id):
             assessments = Assessments.select_id_book(id)
             
             
-            df_assessments = pd.DataFrame(assessments, columns=['id_assessment', 'overall', 'romantic', 'fun', 'sad','shocking','comments','id_book','protocols_id_protocol'])
+            
+            df_assessments = pd.DataFrame(assessments, columns=['id_assessment', 'overall', 'romantic', 'fun', 'sad','shocking','comments','id_book','protocol'])
             
             assessments_json = df_assessments.to_json(orient='records', date_format='iso', force_ascii=False, indent=3)
             
@@ -69,7 +71,18 @@ def book(id):
             json_result = df.to_json(orient='records', date_format='iso', force_ascii=False, indent=2)
             book_json = json.loads(json_result)[0]
             book_json['assessments'] = json.loads(assessments_json)
-        
+            
+            count = 0
+            
+            if assessments:
+                for assessment in assessments:
+                    protocol = Protocol.select_id(assessment[-1])
+                    protocol_str = pd.DataFrame(protocol, columns=['id', 'user_possession', 'remove_at', 'returned_at', 'id_book']).to_json(orient='records', date_format='iso', force_ascii=False, indent=2)
+                    prtocol_json = json.loads(protocol_str)
+                    if book_json['assessments'][count]['protocol'] == assessment[-1]:
+                        book_json['assessments'][count]['protocol'] = prtocol_json[0]
+                    count +=1
+
         
             return book_json
         else:
