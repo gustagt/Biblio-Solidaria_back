@@ -1,11 +1,13 @@
 pipeline {
     agent {
         label 'agent1'
-        }
+    }
     stages {
-        stage('build') {
+        stage('Build Image') {
             steps {
-                echo 'Hello world! teste'
+                script{
+                    dockerapp = docker.build('gustaug/biblioback:v1', '-f . .')
+                }
             }
         }
     }
