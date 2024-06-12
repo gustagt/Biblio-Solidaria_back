@@ -1,0 +1,9 @@
+flask
+Flask-Cors
+sqlalchemy
+pyjwt
+ldap3
+waitress
+pandas
+mysqlclient
+pycrypto

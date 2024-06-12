@@ -7,6 +7,6 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'flask','Flask-Cors','sqlalchemy','pyjwt', 'ldap3', 'waitress', 'pandas'
+        'flask','Flask-Cors','sqlalchemy','pyjwt', 'ldap3', 'waitress', 'pandas', 'mysqlclient'
     ],
 )

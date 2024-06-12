@@ -4,7 +4,7 @@ class active_directory:
     NAME = 'intra'
     
 class   data_base:
-    IP = '127.0.0.1'
+    IP = 'db'
     PORT = '3306'
     SCHEMA = 'biblio'
     USER = 'root'
